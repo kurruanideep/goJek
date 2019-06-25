@@ -59,6 +59,9 @@ public class DepartmentsSectionPage {
 	
 	@FindBy(xpath = "//div[@id='shipmultiplebox']//following::h1")
 	WebElement lable_SelectDelAddress;
+	
+	@FindBy(id = "ap_email")
+	WebElement txtBox_Username;
 
 /*	public DepartmentsSectionPage(WebDriver driver) {  
 		this.driver=driver;
@@ -67,10 +70,10 @@ public class DepartmentsSectionPage {
 		reuse = ReusableMethods.getInstance(driver);  
 	}
 */
-	public DepartmentsSectionPage() {
+	public DepartmentsSectionPage(WebDriver driver) { 
 //		this.driver=driver;
-		PageFactory.initElements(driver, this);
-		(new WebDriverWait(driver,10)).until(ExpectedConditions.visibilityOf(shopAllNavButton));  
+		PageFactory.initElements(driver, this);  
+		(new WebDriverWait(driver,10)).until(ExpectedConditions.visibilityOf(txtBox_Username));  
 		reuse = ReusableMethods.getInstance(driver);  
 	}
 	

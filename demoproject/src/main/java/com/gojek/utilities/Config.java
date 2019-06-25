@@ -30,7 +30,7 @@ public class Config {
 				Iterator<Cell> cellIterator = row.cellIterator();
 				while (cellIterator.hasNext()) {
 					Cell cell = cellIterator.next();
-					if (cell.getStringCellValue().equalsIgnoreCase(RowName)) {
+					if (cell.getStringCellValue().equals(RowName)) {
 						Cell cellvalue = row.getCell(1);
 						workbook.close();
 						return cellvalue.getStringCellValue();

@@ -19,8 +19,7 @@ public class ReadExcel extends BaseClass {
 	public static String data(String packagename, String rowname, String columnname) {
 
 		try {
-			int column = 0;
-			FileInputStream file = new FileInputStream(new File("Config.xlsx"));
+			FileInputStream file = new FileInputStream(new File(Config.getProperty("TestDataExcelPath:")));   
 			XSSFWorkbook workbook = new XSSFWorkbook(file);
 			XSSFSheet sheet = workbook.getSheet(packagename);
 
@@ -32,7 +31,6 @@ public class ReadExcel extends BaseClass {
 					while (cellIterator.hasNext()) {
 						Cell cell = cellIterator.next();
 						if (cell.getStringCellValue().equals(rowname)) {
-							Cell cellvalue = row.getCell(1);
 							Execution++;
 							exe = false;
 						}
@@ -40,6 +38,7 @@ public class ReadExcel extends BaseClass {
 				}
 			}
 			Iterator<Row> rowIterator = sheet.iterator();
+			int column = 0;
 			while (rowIterator.hasNext()) {
 				Row row = rowIterator.next();
 				Iterator<Cell> cellIterator = row.cellIterator();
@@ -50,15 +49,15 @@ public class ReadExcel extends BaseClass {
 					}
 					Cell cell1 = row.getCell(column);
 					if (cell.getStringCellValue().equals(rowname)) {
-						for (int i = 0; i < trip; i++)
+						for (int i = 1; i < trip; i++)
 							row = rowIterator.next();
 						cell1 = row.getCell(column);
 						if (cell1.getStringCellValue().contains("RandomString")) {
 							String dummy = cell1.getStringCellValue();
-							int num = Integer.parseInt(dummy.substring(12, 14));
-						} else if (cell1.getStringCellValue().contains("RandomNumber")) {
+							int num = Integer.parseInt(dummy.substring(13, 14));
+						} else if (cell1.getStringCellValue().contains("RandomNumber")) {  
 							String dummy = cell1.getStringCellValue();
-							int num = Integer.parseInt(dummy.substring(12, 14));
+							int num = Integer.parseInt(dummy.substring(13, 14));
 						} else
 							return cell1.getStringCellValue();
 					}

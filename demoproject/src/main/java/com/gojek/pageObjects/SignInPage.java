@@ -39,8 +39,13 @@ public class SignInPage {
 	}
 	
 	public DepartmentsSectionPage clicksignInNavButton() throws IOException {
-		reuse.clickElement(signInNavButton);  
-		return new DepartmentsSectionPage();  
+		try {
+			reuse.clickElement(signInNavButton);  
+			return new DepartmentsSectionPage(driver); 
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		return null;  
 	}
 
 	public void login(String username, String password) throws IOException {

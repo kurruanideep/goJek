@@ -65,7 +65,7 @@ public class BaseClass {
 	public String getData(String columnName) {
 		String className = this.getClass().getSimpleName();
 		String packageName = this.getClass().getName().split("\\.")[1];
-		return ReadExcel.data(packageName, className, columnName);		
+		return ReadExcel.data(packageName, className, columnName);		 
 	}
 	
 	@SuppressWarnings("unused")
