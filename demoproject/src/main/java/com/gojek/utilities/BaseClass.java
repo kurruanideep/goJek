@@ -39,7 +39,7 @@ public class BaseClass {
 		if (browser.equals("Specified in config sheet")) {
 			String className = this.getClass().getSimpleName();
 			String packageName = this.getClass().getName().split("\\.")[1];
-			browser = ReadExcel.data(packageName, className, "Browser");
+			browser = ReadExcel.data(packageName, className, "Browser"); 
 		}
 		if (browser.equalsIgnoreCase("chrome")) {
 			String path = Config.getProperty("ChromePath:");
