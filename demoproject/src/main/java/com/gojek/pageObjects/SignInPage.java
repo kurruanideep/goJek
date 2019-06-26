@@ -38,17 +38,16 @@ public class SignInPage {
 		reuse = ReusableMethods.getInstance(driver);  
 	}
 	
-	public DepartmentsSectionPage clicksignInNavButton() throws IOException {
+	public void clicksignInNavButton() throws IOException {
 		try {
 			reuse.clickElement(signInNavButton);  
-			return new DepartmentsSectionPage(driver); 
+			//return new DepartmentsSectionPage(driver); 
 		} catch (Exception e) {
 			e.printStackTrace();
-		} 
-		return null;  
+		}   
 	}
 
-	public void login(String username, String password) throws IOException {
+	public void login() throws IOException {  
 		reuse.sendText(txtBox_Username, Config.getProperty("UserName:")); 
 		reuse.clickElement(btn_Continue);  
 		reuse.sendText(txtBox_Password, Config.getProperty("Password:"));  

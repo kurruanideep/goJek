@@ -1,16 +1,19 @@
 package com.gojek.utilities;
 
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.Set;
 
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class ReusableMethods {
+public class ReusableMethods extends BaseClass {
 
 	private static ReusableMethods reuse;
 	private WebDriver driver;
@@ -26,14 +29,28 @@ public class ReusableMethods {
 		return reuse;
 	}
 	
+	public void windowHandle(WebElement element) throws IOException {
+		String parentWindow = driver.getWindowHandle(); 
+		Set<String> s1 = driver.getWindowHandles();
+		Iterator<String> i1 = s1.iterator();
+
+		while (i1.hasNext()) {  
+			String childWindow = i1.next();
+			if (!parentWindow.equalsIgnoreCase(childWindow)) {
+				driver.switchTo().window(childWindow);
+				reuse.clickElement(element);
+				driver.close();
+			}
+		}
+		driver.switchTo().window(parentWindow);
+	}
+
 	public boolean selectDropdownByVisibleText(WebElement element, String text) throws IOException {
 		int i = 0;
 		try {
 			for (i = 0; i < 7; i++) {
-				try {
-					(new WebDriverWait(driver, 60)).until(ExpectedConditions.visibilityOf(element));
+				try {  
 					if (element.isDisplayed() && element.isEnabled()) {
-						viewElement(element);
 						Select elementSelectObj = new Select(element);
 						elementSelectObj.selectByVisibleText(text);
 						break;
@@ -42,6 +59,7 @@ public class ReusableMethods {
 					}
 				} catch (TimeoutException e) {
 					Log.error("Element is not selected");
+					e.printStackTrace();
 					continue;
 				}
 			}
@@ -51,31 +69,18 @@ public class ReusableMethods {
 		return false;
 	}
 
-	public boolean clickElement(WebElement element) throws IOException {
+	public void clickElement(WebElement element) throws IOException {
 		int i = 0;
-		try {
-			for (i = 0; i < 7; i++) {
-				try {
-					(new WebDriverWait(driver, 60)).until(ExpectedConditions.visibilityOf(element));
-					viewElement(element);
-					if (element.isDisplayed()) {
-						element.click();
-						System.out.println("Executed :clickElement, PASS");
-						return true;
-					} else {
-						continue;
-					}
-				} catch (TimeoutException e) {
-					Log.error("Element is not clicked");  
-					continue;
-				}
+		for (i = 0; i < 7; i++) {
+			try {
+				element.click();
+				break;
+			} catch (WebDriverException e) {
+				continue;
 			}
-		} catch (Exception e) {
-			return false;
 		}
-		return false;
 	}
-	
+
 	public boolean viewElement(WebElement element) throws IOException, InterruptedException {
 
 		try {
@@ -86,7 +91,7 @@ public class ReusableMethods {
 			return false;
 		}
 	}
-	
+
 	public boolean sendText(WebElement element, String text) throws IOException {
 		int i = 0;
 		try {

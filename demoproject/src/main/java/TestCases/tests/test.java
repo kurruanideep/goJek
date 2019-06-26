@@ -8,7 +8,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import com.gojek.pageObjects.DepartmentsSectionPage;
+import com.gojek.pageObjects.DepartmentsSelectionPage;
 import com.gojek.pageObjects.SignInPage;
 import com.gojek.utilities.BaseClass;
 import com.gojek.utilities.Config;
@@ -30,7 +30,7 @@ public class test extends BaseClass{
 	public void close() {
 		endLog();
 		String path = Config.getProperty("ChromePath:");
-		System.setProperty("webdriver.chrome.driver", path);
+		System.setProperty("webdriver.chrome.driver", path);  
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
 		File file = new File(Log.htmlfile); 
@@ -38,14 +38,16 @@ public class test extends BaseClass{
 	}
 	
 	SignInPage signinpage;
-	DepartmentsSectionPage dsp;
+	DepartmentsSelectionPage dsp; 
 	
-	@Test()
-	public void test() throws IOException {
+	@Test()   
+	public void test123() throws IOException {
 		SignInPage signinpage = new SignInPage(driver);
-		signinpage.clicksignInNavButton();     
-		DepartmentsSectionPage dsp = new DepartmentsSectionPage(driver);
-		dsp.test();		
+		signinpage.clicksignInNavButton(); 
+		signinpage.login(); 
+		DepartmentsSelectionPage dsp = new DepartmentsSelectionPage(driver);
+		dsp.addHeadPhonesToCart();	
+		dsp.addMacBookProToCart(getData("Item"),getData("Quantity"));     
 	}
 	 
 

@@ -2,20 +2,20 @@
 <testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="32191" started-at="2019-06-25T20:10:16Z" finished-at="2019-06-25T20:10:48Z">
+  <suite name="Default suite" duration-ms="160396" started-at="2019-06-26T07:37:16Z" finished-at="2019-06-26T07:39:56Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="32191" started-at="2019-06-25T20:10:16Z" finished-at="2019-06-25T20:10:48Z">
+    <test name="Default test" duration-ms="160396" started-at="2019-06-26T07:37:16Z" finished-at="2019-06-26T07:39:56Z">
       <class name="TestCases.tests.test">
-        <test-method status="PASS" signature="start()[pri:0, instance:TestCases.tests.test@59a6e353]" name="start" is-config="true" duration-ms="16108" started-at="2019-06-26T01:40:16Z" finished-at="2019-06-26T01:40:32Z">
+        <test-method status="PASS" signature="start()[pri:0, instance:TestCases.tests.test@59a6e353]" name="start" is-config="true" duration-ms="50693" started-at="2019-06-26T13:07:16Z" finished-at="2019-06-26T13:08:07Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- start -->
-        <test-method status="PASS" signature="test()[pri:0, instance:TestCases.tests.test@59a6e353]" name="test" duration-ms="6811" started-at="2019-06-26T01:40:32Z" finished-at="2019-06-26T01:40:39Z">
+        <test-method status="PASS" signature="test123()[pri:0, instance:TestCases.tests.test@59a6e353]" name="test123" duration-ms="100959" started-at="2019-06-26T13:08:07Z" finished-at="2019-06-26T13:09:47Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="close()[pri:0, instance:TestCases.tests.test@59a6e353]" name="close" is-config="true" duration-ms="9256" started-at="2019-06-26T01:40:39Z" finished-at="2019-06-26T01:40:48Z">
+        </test-method> <!-- test123 -->
+        <test-method status="PASS" signature="close()[pri:0, instance:TestCases.tests.test@59a6e353]" name="close" is-config="true" duration-ms="8731" started-at="2019-06-26T13:09:47Z" finished-at="2019-06-26T13:09:56Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- close -->
