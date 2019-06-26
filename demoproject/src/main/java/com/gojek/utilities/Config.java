@@ -22,9 +22,8 @@ public class Config {
 			FileInputStream file = new FileInputStream(new File("Config.xlsx"));
 			XSSFWorkbook workbook = new XSSFWorkbook(file);
 			XSSFSheet sheet = workbook.getSheetAt(0);
-
+			
 			Iterator<Row> rowIterator = sheet.iterator();
-
 			while (rowIterator.hasNext()) {
 				Row row = rowIterator.next();
 				Iterator<Cell> cellIterator = row.cellIterator();

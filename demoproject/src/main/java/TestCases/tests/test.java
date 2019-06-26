@@ -8,47 +8,64 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import com.gojek.pageObjects.CartPage;
 import com.gojek.pageObjects.DepartmentsSelectionPage;
+import com.gojek.pageObjects.LogOutPage;
 import com.gojek.pageObjects.SignInPage;
 import com.gojek.utilities.BaseClass;
 import com.gojek.utilities.Config;
 import com.gojek.utilities.Log;
 
-public class test extends BaseClass{
-	
-	
+public class test extends BaseClass {
+
 	@BeforeClass
-	public void start() throws IOException {
+	public void start() throws Exception {
 		getData("Execution");
-		if(getData("Execution").equalsIgnoreCase("Yes")) {
+		if (getData("Execution").equalsIgnoreCase("Yes")) {
 			startLog();
 			openBrowser();
 		}
 	}
-	
+
 	@AfterClass
 	public void close() {
 		endLog();
 		String path = Config.getProperty("ChromePath:");
-		System.setProperty("webdriver.chrome.driver", path);  
+		System.setProperty("webdriver.chrome.driver", path);
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
-		File file = new File(Log.htmlfile); 
-		driver.get(file.getAbsolutePath());  
+		File file = new File(Log.htmlfile);
+		driver.get(file.getAbsolutePath());
+		report.flush();  
+	}
+
+	@Test(priority =1)
+	public void testSignIn() throws IOException {
+		SignInPage signinpage = new SignInPage(driver);
+		signinpage.clicksignInNavButton();
+		signinpage.login();
 	}
 	
-	SignInPage signinpage;
-	DepartmentsSelectionPage dsp; 
-	
-	@Test()   
-	public void test123() throws IOException {
-		SignInPage signinpage = new SignInPage(driver);
-		signinpage.clicksignInNavButton(); 
-		signinpage.login(); 
-		DepartmentsSelectionPage dsp = new DepartmentsSelectionPage(driver);
-		dsp.addHeadPhonesToCart();	
-		dsp.addMacBookProToCart(getData("Item"),getData("Quantity"));     
+	@Test(priority = 2)
+	public void testAddItemToCart() throws IOException {
+		DepartmentsSelectionPage deptselectionpage = new DepartmentsSelectionPage(driver);
+		deptselectionpage.verifyDepartmentSelectionPage();
+		deptselectionpage.addHeadPhonesToCart();
+		deptselectionpage.addMacBookProToCart(getData("Item"), getData("Quantity"));
+		deptselectionpage.clickCartButton();
 	}
 	 
+	@Test(priority = 3)
+	public void testDeleteItemFromCart() throws IOException {
+		CartPage cartpage = new CartPage(driver);
+		cartpage.verifyCartPage();
+		cartpage.deleteCartItem();
+	}
+
+	@Test(priority=4) 
+	public void LogOut() throws IOException {
+		LogOutPage logout = new LogOutPage(driver);
+		logout.clickLogOut();
+	}
 
 }

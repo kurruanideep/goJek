@@ -1,7 +1,6 @@
 package com.gojek.utilities;
 
 import java.io.File;
-import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -18,7 +17,7 @@ import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 
 public class BaseClass {
-	
+
 	protected BaseClass() {
 	}
 
@@ -28,18 +27,19 @@ public class BaseClass {
 	public static int trip = 1;
 	public static ExtentReports report;
 	public static ExtentTest test;
+	public static int slNo = 0;
 	public static boolean reportCreated = false;
-	public static String TestCaseName = null;  
-	public static DateFormat dateFormat = new SimpleDateFormat("DDMMYYYY");
+	public static String TestCaseName = null;
+	public static DateFormat dateFormat = new SimpleDateFormat("dd.MMMMM.yyyy\\hh.mm a");
 	public static Calendar cal = Calendar.getInstance();
 
-	public void openBrowser() throws IOException {
+	public void openBrowser() throws Exception {
 
 		String browser = Config.getProperty("Broswer:");
 		if (browser.equals("Specified in config sheet")) {
 			String className = this.getClass().getSimpleName();
 			String packageName = this.getClass().getName().split("\\.")[1];
-			browser = ReadExcel.data(packageName, className, "Browser"); 
+			browser = ReadExcel.data(packageName, className, "Browser");
 		}
 		if (browser.equalsIgnoreCase("chrome")) {
 			String path = Config.getProperty("ChromePath:");
@@ -54,34 +54,36 @@ public class BaseClass {
 			System.setProperty("webdriver.ie.driver", path);
 			driver = new ChromeDriver();
 		}
-		
+
 		driver.manage().deleteAllCookies();
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-		
-		driver.get(Config.getProperty("URL:"));  
+
+		driver.get(Config.getProperty("URL:"));
 	}
-	
+
 	public String getData(String columnName) {
 		String className = this.getClass().getSimpleName();
 		String packageName = this.getClass().getName().split("\\.")[1];
-		return ReadExcel.data(packageName, className, columnName);		 
+		return ReadExcel.data(packageName, className, columnName);
 	}
-	
+
 	@SuppressWarnings("unused")
 	public static void getScreenshot(String description) {
 		try {
-			File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-			File scrshot = new File((Config.getProperty("HTMLReportPath:")+"//"+dateFormat.format(cal.getTime())+"\\screenshots\\"+".jpg"));
+			slNo++;
+			File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+			File scrshot = new File((Config.getProperty("HTMLReportPath:") + "//" + dateFormat.format(cal.getTime())
+					+ "\\screenshots\\" + slNo + ".jpg"));
 			FileUtils.copyFile(scrFile, scrshot);
 			String path = scrshot.getAbsolutePath();
-			test.log(LogStatus.INFO, description+":" +test.addScreenCapture("\\screenshots\\"+".jpg")); 
-			
-		} catch (IOException e) {
+			test.log(LogStatus.INFO, description + ":" + test.addScreenCapture("\\screenshots\\" + slNo + ".jpg"));
+
+		} catch (Exception e) { 
 			e.printStackTrace();
-		}		
+		}
 	}
-	
+
 	public void startLog() {
 		TestCaseName = this.getClass().getSimpleName();
 		Log.startTestCase();

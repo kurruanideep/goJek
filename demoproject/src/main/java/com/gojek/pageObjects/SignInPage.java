@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.gojek.utilities.Config;
+import com.gojek.utilities.Log;
 import com.gojek.utilities.ReusableMethods;
 
 public class SignInPage {
@@ -39,23 +40,20 @@ public class SignInPage {
 	}
 	
 	public void clicksignInNavButton() throws IOException {
+			reuse.clickElement(signInNavButton);    
+	}
+
+	public DepartmentsSelectionPage login() throws IOException {  
 		try {
-			reuse.clickElement(signInNavButton);  
-			//return new DepartmentsSectionPage(driver); 
+			reuse.sendText(txtBox_Username, Config.getProperty("UserName:")); 
+			reuse.clickElement(btn_Continue);  
+			reuse.sendText(txtBox_Password, Config.getProperty("Password:"));  
+			reuse.clickElement(btn_SignIn);
+			return new DepartmentsSelectionPage(driver); 
 		} catch (Exception e) {
+			Log.fail("login is failed");
 			e.printStackTrace();
-		}   
+		}
+		return null;     
 	}
-
-	public void login() throws IOException {  
-		reuse.sendText(txtBox_Username, Config.getProperty("UserName:")); 
-		reuse.clickElement(btn_Continue);  
-		reuse.sendText(txtBox_Password, Config.getProperty("Password:"));  
-		reuse.clickElement(btn_SignIn);
-	}
-	
-	
-	
-	
-
 }
