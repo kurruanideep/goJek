@@ -31,7 +31,7 @@ public class DepartmentsSelectionPage extends BaseClass {
 	WebElement select_Headphones;
 
 	@FindBy(xpath = "(//img[@class='s-image'])[1]")
-	WebElement selectFirstResult;
+	WebElement selectFirstResult; 
 
 	@FindBy(id = "add-to-cart-button")
 	WebElement button_AddToCart;
