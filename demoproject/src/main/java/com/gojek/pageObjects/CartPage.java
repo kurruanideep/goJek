@@ -1,5 +1,6 @@
 package com.gojek.pageObjects;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -18,7 +19,7 @@ public class CartPage {
 	@FindBy(xpath = "(//input[@value='Delete'])[2]")
 	WebElement button_DeleteCartItem;
 
-	@FindBy(xpath = "//span[@data-action='a-dropdown-button']")
+	@FindBy(xpath = "//i[@class='a-icon a-icon-dropdown']")
 	WebElement quantityDropDwn;
 
 	@FindBy(xpath = "(//li[@tabindex='0']/a)[1]")
@@ -43,11 +44,12 @@ public class CartPage {
 		else
 			Log.fail("Cart page is not displayed, items cannot be modified");  				
 	}
-	
+	 
 	public LogOutPage deleteCartItem() { 
 		try {
 			reuse.clickElement(button_DeleteCartItem); 
-			reuse.clickElement(quantityDropDwn);
+			((JavascriptExecutor) driver).executeScript("arguments[0].click();", quantityDropDwn);  
+//			reuse.clickElement(quantityDropDwn);
 			reuse.clickElement(quantityOneItemSelect); 
 			reuse.clickElement(button_ProceedToCheckout); 
 			if(lable_SelectDelAddress.isDisplayed()) 

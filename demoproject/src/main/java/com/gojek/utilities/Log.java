@@ -44,7 +44,9 @@ public class Log extends BaseClass {
 	public static void pass(String message) {
 		log.info(message);
 		test.log(LogStatus.PASS, message);
-		getScreenshot("Screenshoot");
+		try {
+		getScreenshot("Screenshoot"); 
+		}catch(Exception e) {}
 	}
 
 	public static void fail(String message) {

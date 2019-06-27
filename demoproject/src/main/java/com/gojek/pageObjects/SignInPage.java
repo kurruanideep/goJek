@@ -40,7 +40,11 @@ public class SignInPage {
 	}
 	
 	public void clicksignInNavButton() throws IOException {
-			reuse.clickElement(signInNavButton);    
+		try {
+			reuse.clickElement(signInNavButton);  
+		} catch (Exception e) {
+			e.printStackTrace();
+		}   
 	}
 
 	public DepartmentsSelectionPage login() throws IOException {  
@@ -49,7 +53,8 @@ public class SignInPage {
 			reuse.clickElement(btn_Continue);  
 			reuse.sendText(txtBox_Password, Config.getProperty("Password:"));  
 			reuse.clickElement(btn_SignIn);
-			return new DepartmentsSelectionPage(driver); 
+			Log.pass("est");
+//			return new DepartmentsSelectionPage(driver); 
 		} catch (Exception e) {
 			Log.fail("login is failed");
 			e.printStackTrace();

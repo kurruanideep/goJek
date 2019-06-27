@@ -58,7 +58,7 @@ public class BaseClass {
 		driver.manage().deleteAllCookies();
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-
+		driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
 		driver.get(Config.getProperty("URL:"));
 	}
 
@@ -73,13 +73,14 @@ public class BaseClass {
 		try {
 			slNo++;
 			File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-			File scrshot = new File((Config.getProperty("HTMLReportPath:") + "//" + dateFormat.format(cal.getTime())
+			String pathscrenshot = ((Config.getProperty("HTMLReportPath:") + "//" + dateFormat.format(cal.getTime())
 					+ "\\screenshots\\" + slNo + ".jpg"));
+			File scrshot=new File(pathscrenshot);
 			FileUtils.copyFile(scrFile, scrshot);
 			String path = scrshot.getAbsolutePath();
-			test.log(LogStatus.INFO, description + ":" + test.addScreenCapture("\\screenshots\\" + slNo + ".jpg"));
+			test.log(LogStatus.INFO, description + ": " + test.addScreenCapture(pathscrenshot/*"screenshots\\" + slNo + ".jpg"*/));
 
-		} catch (Exception e) { 
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

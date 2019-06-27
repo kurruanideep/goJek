@@ -46,7 +46,7 @@ public class test extends BaseClass {
 		signinpage.login();
 	}
 	
-	@Test(priority = 2)
+/*	@Test(priority = 2)
 	public void testAddItemToCart() throws IOException {
 		DepartmentsSelectionPage deptselectionpage = new DepartmentsSelectionPage(driver);
 		deptselectionpage.verifyDepartmentSelectionPage();
@@ -60,12 +60,12 @@ public class test extends BaseClass {
 		CartPage cartpage = new CartPage(driver);
 		cartpage.verifyCartPage();
 		cartpage.deleteCartItem();
-	}
+	} 
 
 	@Test(priority=4) 
 	public void LogOut() throws IOException {
 		LogOutPage logout = new LogOutPage(driver);
 		logout.clickLogOut();
 	}
-
+*/
 }

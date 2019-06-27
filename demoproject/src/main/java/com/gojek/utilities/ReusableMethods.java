@@ -8,7 +8,9 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ReusableMethods extends BaseClass {
 
@@ -17,7 +19,7 @@ public class ReusableMethods extends BaseClass {
 
 	public ReusableMethods(WebDriver driver) {
 		this.driver = driver;
-	} 
+	}
 
 	public static ReusableMethods getInstance(WebDriver driver) {
 		if (reuse == null) {
@@ -25,16 +27,16 @@ public class ReusableMethods extends BaseClass {
 		}
 		return reuse;
 	}
-	
-	public void windowHandle(WebElement element) throws IOException {
-		String parentWindow = driver.getWindowHandle(); 
+
+	public void windowHandle(WebElement element) throws IOException, InterruptedException {
+		String parentWindow = driver.getWindowHandle();
 		Set<String> s1 = driver.getWindowHandles();
 		Iterator<String> i1 = s1.iterator();
-
-		while (i1.hasNext()) {  
+		while (i1.hasNext()) {
 			String childWindow = i1.next();
 			if (!parentWindow.equalsIgnoreCase(childWindow)) {
 				driver.switchTo().window(childWindow);
+				Thread.sleep(2000);  
 				reuse.clickElement(element);
 				driver.close();
 			}
@@ -46,7 +48,7 @@ public class ReusableMethods extends BaseClass {
 		int i = 0;
 		try {
 			for (i = 0; i < 7; i++) {
-				try {  
+				try {
 					if (element.isDisplayed() && element.isEnabled()) {
 						Select elementSelectObj = new Select(element);
 						elementSelectObj.selectByVisibleText(text);
@@ -69,10 +71,13 @@ public class ReusableMethods extends BaseClass {
 		int i = 0;
 		for (i = 0; i < 7; i++) {
 			try {
-				element.click();
-				break;
+				(new WebDriverWait(driver, 60)).until(ExpectedConditions.visibilityOf(element));
+				if (element.isDisplayed() && element.isEnabled()) {
+					element.click();
+					break;
+				}
 			} catch (WebDriverException e) {
-				Log.fail("Click element is failed"); 
+				Log.fail("Click element is failed");
 				continue;
 			}
 		}
@@ -90,10 +95,10 @@ public class ReusableMethods extends BaseClass {
 							continue;
 						}
 						return true;
-					} else 
+					} else
 						continue;
 				} catch (TimeoutException e) {
-					Log.fail("Send text is failed"); 
+					Log.fail("Send text is failed");
 					continue;
 				}
 			}

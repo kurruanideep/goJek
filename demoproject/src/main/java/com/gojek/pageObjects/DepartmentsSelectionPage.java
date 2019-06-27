@@ -31,9 +31,13 @@ public class DepartmentsSelectionPage extends BaseClass {
 
 	@FindBy(xpath = "(//img[@class='s-image'])[1]")
 	WebElement selectFirstResult; 
-
-	@FindBy(/*id = "add-to-cart-button"*/xpath="//button[contains(text(),'Add to Cart')]") 
+  
+	/*id = "add-to-cart-button"*/ 
+	@FindBy(xpath="//button[contains(text(),'Add to Cart')]") 
 	WebElement button_AddToCart;
+	
+	@FindBy(id = "add-to-cart-button") 
+	WebElement btn_AddToCart;
 
 	@FindBy(id = "twotabsearchtextbox")
 	WebElement txtBox_Search;
@@ -41,7 +45,7 @@ public class DepartmentsSelectionPage extends BaseClass {
 	@FindBy(xpath = "//input[@value='Go']")
 	WebElement searchBtn;
 
-	@FindBy(xpath = "(//img[@class='s-image'])[2]")
+	@FindBy(xpath = "(//div[@class='imageContainer'])[2]") 
 	WebElement select_SecondResult;
 
 	@FindBy(xpath = "//select[@id='quantity']") 
@@ -66,7 +70,7 @@ public class DepartmentsSelectionPage extends BaseClass {
 	} 
 
 	public void verifyDepartmentSelectionPage() {
-		if(shopAllNavButton.isDisplayed())
+		if(shopAllNavButton.isDisplayed())  
 			Log.pass("SignIn is successfull");
 		else
 			Log.fail("SignIn is not successfull");  				
@@ -77,7 +81,7 @@ public class DepartmentsSelectionPage extends BaseClass {
 			reuse.clickElement(shopAllNavButton);
 			reuse.clickElement(link_Headphones);
 			reuse.clickElement(select_Headphones);
-			reuse.clickElement(selectFirstResult);
+			//reuse.clickElement(selectFirstResult);
 			reuse.windowHandle(button_AddToCart); 
 		} catch (Exception e) {
 			Log.fail("addHeadPhonesToCart is failed"); 
@@ -100,10 +104,12 @@ public class DepartmentsSelectionPage extends BaseClass {
 					driver.switchTo().window(childWindow);
 					reuse.selectDropdownByVisibleText(selectQuantity, quantity);       
 					reuse.clickElement(button_AddToCart);    
-					driver.close();    
+					driver.close();  
+					driver.switchTo().window(parentWindow);
 				}
-			}
-			driver.switchTo().window(parentWindow);
+			} 
+			reuse.selectDropdownByVisibleText(selectQuantity, quantity);       
+			reuse.clickElement(btn_AddToCart);
 		} catch (Exception e) { 
 			Log.fail("addMacBookProToCart is failed"); 
 			e.printStackTrace();
