@@ -1,6 +1,5 @@
 package com.gojek.pageObjects;
 
-import java.io.IOException;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -64,19 +63,19 @@ public class DepartmentsSelectionPage extends BaseClass {
 		reuse = ReusableMethods.getInstance(driver);
 	}
 	
-	public CartPage clickCartButton() throws IOException {
+	public CartPage clickCartButton() throws Exception {
 			reuse.clickElement(button_Cart);  
 			return new CartPage(driver);  
 	} 
 
-	public void verifyDepartmentSelectionPage() {
+	public void verifyDepartmentSelectionPage() throws Exception {
 		if(shopAllNavButton.isDisplayed())  
 			Log.pass("SignIn is successfull");
 		else
 			Log.fail("SignIn is not successfull");  				
 	}
 	
-	public void addHeadPhonesToCart() throws IOException {
+	public void addHeadPhonesToCart() throws Exception {
 		try {
 			reuse.clickElement(shopAllNavButton);
 			reuse.clickElement(link_Headphones);
@@ -89,7 +88,7 @@ public class DepartmentsSelectionPage extends BaseClass {
 		}
 	}
 
-	public void addMacBookProToCart(String item,String quantity) throws IOException { 
+	public void addMacBookProToCart(String item,String quantity) throws Exception { 
 		try {
 			reuse.sendText(txtBox_Search,item);  
 			reuse.clickElement(searchBtn);

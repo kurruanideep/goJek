@@ -39,7 +39,7 @@ public class LogOutPage {
 		reuse = ReusableMethods.getInstance(driver);
 	}
 
-	public void clickLogOut() {
+	public void clickLogOut() throws Exception {
 
 		try { 
 			driver.get(Config.getProperty("URL:"));

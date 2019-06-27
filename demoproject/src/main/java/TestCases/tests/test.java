@@ -1,8 +1,6 @@
 package TestCases.tests;
 
 import java.io.File;
-import java.io.IOException;
-
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -40,14 +38,14 @@ public class test extends BaseClass {
 	}
 
 	@Test(priority =1)
-	public void testSignIn() throws IOException {
+	public void testSignIn() throws Exception {
 		SignInPage signinpage = new SignInPage(driver);
 		signinpage.clicksignInNavButton();
 		signinpage.login();
 	}
 	
-/*	@Test(priority = 2)
-	public void testAddItemToCart() throws IOException {
+	@Test(priority = 2)
+	public void testAddItemToCart() throws Exception {
 		DepartmentsSelectionPage deptselectionpage = new DepartmentsSelectionPage(driver);
 		deptselectionpage.verifyDepartmentSelectionPage();
 		deptselectionpage.addHeadPhonesToCart();
@@ -56,16 +54,15 @@ public class test extends BaseClass {
 	}
 	 
 	@Test(priority = 3)
-	public void testDeleteItemFromCart() throws IOException {
+	public void testDeleteItemFromCart() throws Exception {
 		CartPage cartpage = new CartPage(driver);
 		cartpage.verifyCartPage();
 		cartpage.deleteCartItem();
 	} 
 
 	@Test(priority=4) 
-	public void LogOut() throws IOException {
+	public void LogOut() throws Exception {
 		LogOutPage logout = new LogOutPage(driver);
 		logout.clickLogOut();
 	}
-*/
 }

@@ -47,14 +47,14 @@ public class SignInPage {
 		}   
 	}
 
-	public DepartmentsSelectionPage login() throws IOException {  
+	public DepartmentsSelectionPage login() throws Exception {  
 		try {
 			reuse.sendText(txtBox_Username, Config.getProperty("UserName:")); 
 			reuse.clickElement(btn_Continue);  
 			reuse.sendText(txtBox_Password, Config.getProperty("Password:"));  
 			reuse.clickElement(btn_SignIn);
-			Log.pass("est");
-//			return new DepartmentsSelectionPage(driver); 
+			Log.pass("test");
+			//return new DepartmentsSelectionPage(driver); 
 		} catch (Exception e) {
 			Log.fail("login is failed");
 			e.printStackTrace();

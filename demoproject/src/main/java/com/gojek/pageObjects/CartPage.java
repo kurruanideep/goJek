@@ -38,14 +38,14 @@ public class CartPage {
 		reuse = ReusableMethods.getInstance(driver);
 	}
 	
-	public void verifyCartPage() {
+	public void verifyCartPage() throws Exception {
 		if(button_DeleteCartItem.isDisplayed())
 			Log.pass("Cart page is displayed, items can be modified");
 		else
 			Log.fail("Cart page is not displayed, items cannot be modified");  				
 	}
 	 
-	public LogOutPage deleteCartItem() { 
+	public LogOutPage deleteCartItem() throws Exception { 
 		try {
 			reuse.clickElement(button_DeleteCartItem); 
 			((JavascriptExecutor) driver).executeScript("arguments[0].click();", quantityDropDwn);  

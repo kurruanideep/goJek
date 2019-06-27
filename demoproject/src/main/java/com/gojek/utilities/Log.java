@@ -49,15 +49,15 @@ public class Log extends BaseClass {
 		}catch(Exception e) {}
 	}
 
-	public static void fail(String message) {
+	public static void fail(String message) throws Exception {
 		isPassed = false;
 		log.error(message);
 		test.log(LogStatus.FAIL, message);
 		getScreenshot("Failed Screenshoot");
-		endTestCase();
+		endTestCase(); 
 	}
 
-	public static void error(String message) {
+	public static void error(String message) throws Exception {
 		isPassed = false;
 		log.error(message);
 		test.log(LogStatus.ERROR, message);

@@ -58,7 +58,7 @@ public class BaseClass {
 		driver.manage().deleteAllCookies();
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-		driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
+		driver.manage().timeouts().pageLoadTimeout(50, TimeUnit.SECONDS); 
 		driver.get(Config.getProperty("URL:"));
 	}
 
@@ -68,21 +68,15 @@ public class BaseClass {
 		return ReadExcel.data(packageName, className, columnName);
 	}
 
-	@SuppressWarnings("unused")
-	public static void getScreenshot(String description) {
-		try {
-			slNo++;
-			File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-			String pathscrenshot = ((Config.getProperty("HTMLReportPath:") + "//" + dateFormat.format(cal.getTime())
-					+ "\\screenshots\\" + slNo + ".jpg"));
-			File scrshot=new File(pathscrenshot);
-			FileUtils.copyFile(scrFile, scrshot);
-			String path = scrshot.getAbsolutePath();
-			test.log(LogStatus.INFO, description + ": " + test.addScreenCapture(pathscrenshot/*"screenshots\\" + slNo + ".jpg"*/));
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	@SuppressWarnings("unused") 
+	public static void getScreenshot(String Description) throws Exception {
+		slNo++;
+		File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+		File scrshot = new File((Config.getProperty("HTMLReportPath:") + "//" + dateFormat.format(cal.getTime())
+				+ "\\ScrShots\\" + slNo + ".jpg"));
+		FileUtils.copyFile(scrFile, scrshot);  
+		String path = scrshot.getAbsolutePath();
+		test.log(LogStatus.INFO, Description + ": " + test.addScreenCapture(("ScrShots\\" + slNo + ".jpg")));  
 	}
 
 	public void startLog() {

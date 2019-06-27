@@ -28,7 +28,7 @@ public class ReusableMethods extends BaseClass {
 		return reuse;
 	}
 
-	public void windowHandle(WebElement element) throws IOException, InterruptedException {
+	public void windowHandle(WebElement element) throws Exception {
 		String parentWindow = driver.getWindowHandle();
 		Set<String> s1 = driver.getWindowHandles();
 		Iterator<String> i1 = s1.iterator();
@@ -36,7 +36,7 @@ public class ReusableMethods extends BaseClass {
 			String childWindow = i1.next();
 			if (!parentWindow.equalsIgnoreCase(childWindow)) {
 				driver.switchTo().window(childWindow);
-				Thread.sleep(2000);  
+				Thread.sleep(4000);  
 				reuse.clickElement(element);
 				driver.close();
 			}
@@ -67,7 +67,7 @@ public class ReusableMethods extends BaseClass {
 		return false;
 	}
 
-	public void clickElement(WebElement element) throws IOException {
+	public void clickElement(WebElement element) throws Exception {
 		int i = 0;
 		for (i = 0; i < 7; i++) {
 			try {
