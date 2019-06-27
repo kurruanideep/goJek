@@ -6,15 +6,4 @@
       <class name="TestCases.tests.test"/>
     </classes>
   </test> <!-- Default test -->
-  <test name="Default test(failed)">
-    <classes>
-      <class name="TestCases.tests.test">
-        <methods>
-          <include name="LogOut"/>
-          <include name="close"/>
-          <include name="start"/>
-        </methods>
-      </class> <!-- TestCases.tests.test -->
-    </classes>
-  </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
